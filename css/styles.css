@@ -1,6 +1,15 @@
+@font-face {
+  font-family: 'Great Vibes';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/greatvibes/v21/RWmMoKWR9v4ksMfaWd_JN9XFiaQoDmlr.woff2) format('woff2');
+}
+
 /* ========================================
    CSS Custom Properties
    ======================================== */
+
 :root {
   --clr-bg: #0A0A0F;
   --clr-bg-alt: #08080E;
@@ -19,6 +28,7 @@
 
   --ff-display: 'Cinzel', serif;
   --ff-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ff-script: 'Great Vibes', cursive;
 
   --fs-xs: 0.75rem;
   --fs-sm: 0.875rem;
@@ -397,10 +407,10 @@ button { border: none; background: none; cursor: none; font: inherit; color: inh
 }
 
 .hero__title {
-  font-family: var(--ff-display);
+  font-family: var(--ff-script);
   font-size: var(--fs-6xl);
-  font-weight: 800;
-  letter-spacing: 0.03em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   line-height: var(--leading-tight);
   background: linear-gradient(135deg, #818CF8, #6366F1, #A5B4FC);
   -webkit-background-clip: text;
