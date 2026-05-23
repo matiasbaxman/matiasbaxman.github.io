@@ -89,36 +89,14 @@ document.addEventListener('DOMContentLoaded', () => {
   i18n.init();
 
   /* ========================================
-     Splash Screen
-     ======================================== */
-  const splash = document.getElementById('splash');
-
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      splash.classList.add('splash--hidden');
-    }, 800);
-  });
-
-  /* ========================================
      Custom Cursor + Trail
      ======================================== */
   const cursor = document.getElementById('cursor');
   let mouseX = 0, mouseY = 0;
   let cursorX = 0, cursorY = 0;
-
-  const TRAIL_COUNT = 8;
-  const trailDots = [];
-
-  for (let i = 0; i < TRAIL_COUNT; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'cursor-trail';
-    const size = (1 - i / TRAIL_COUNT) * 6 + 2;
-    dot.style.width = size + 'px';
-    dot.style.height = size + 'px';
-    dot.style.opacity = (1 - i / TRAIL_COUNT) * 0.5;
-    document.body.appendChild(dot);
-    trailDots.push({ el: dot, x: 0, y: 0 });
-  }
+  let prevX = 0, prevY = 0;
+  let targetAngle = 0;
+  let currentAngle = 0;
 
   document.addEventListener('mousemove', e => {
     mouseX = e.clientX;
@@ -126,23 +104,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function animateCursor() {
-    cursorX += (mouseX - cursorX) * 0.3;
-    cursorY += (mouseY - cursorY) * 0.3;
+    cursorX += (mouseX - cursorX) * 0.25;
+    cursorY += (mouseY - cursorY) * 0.25;
+
+    const dx = cursorX - prevX;
+    const dy = cursorY - prevY;
+    if (Math.abs(dx) > 0.3 || Math.abs(dy) > 0.3) {
+      targetAngle = Math.atan2(dy, dx) * (180 / Math.PI);
+    }
+    prevX = cursorX;
+    prevY = cursorY;
+
+    let diff = targetAngle - currentAngle;
+    if (diff > 180) diff -= 360;
+    if (diff < -180) diff += 360;
+    currentAngle += diff * 0.12;
+
     cursor.style.left = cursorX + 'px';
     cursor.style.top = cursorY + 'px';
-
-    trailDots[0].x += (cursorX - trailDots[0].x) * 0.25;
-    trailDots[0].y += (cursorY - trailDots[0].y) * 0.25;
-
-    for (let i = 1; i < TRAIL_COUNT; i++) {
-      trailDots[i].x += (trailDots[i - 1].x - trailDots[i].x) * 0.25;
-      trailDots[i].y += (trailDots[i - 1].y - trailDots[i].y) * 0.25;
-    }
-
-    trailDots.forEach(d => {
-      d.el.style.left = d.x + 'px';
-      d.el.style.top = d.y + 'px';
-    });
+    cursor.style.transform = `translate(-50%, -50%) rotate(${currentAngle}deg)`;
 
     requestAnimationFrame(animateCursor);
   }

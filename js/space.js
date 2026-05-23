@@ -15,7 +15,7 @@
   document.body.prepend(renderer.domElement);
 
   const Y = {
-    hero: 0, about: 6, skills: 12, projects: 18, experience: 24, education: 30, contact: 36,
+    about: 6, skills: 12, projects: 18, experience: 24, contact: 36
   };
   const Y_RANGE = [-2, 44];
 
@@ -32,7 +32,6 @@
       const i3 = i * 3;
       pos[i3] = (Math.random() - 0.5) * 200;
       pos[i3 + 1] = -10 + Math.random() * 60;
-      pos[i3 + 2] = (Math.random() - 0.5) * 120 - 40;
       const c = 0.4 + Math.random() * 0.6;
       col[i3] = c; col[i3 + 1] = c; col[i3 + 2] = c;
     }
@@ -40,7 +39,7 @@
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
     const mat = new THREE.PointsMaterial({
-      size: 0.18, vertexColors: true, transparent: true, opacity: 0.45,
+      size: 0.16, vertexColors: true, transparent: true, opacity: 0.4,
       sizeAttenuation: true, blending: THREE.AdditiveBlending, depthWrite: false,
     });
     const p = new THREE.Points(geo, mat);
@@ -57,77 +56,19 @@
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
       pos[i * 3] = (Math.random() - 0.5) * 100;
-      pos[i * 3 + 1] = -5 + Math.random() * 52;
+      pos[i * 3 + 1] = 3 + Math.random() * 46;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 60 - 5;
     }
     const geo = new THREE.BufferGeometry();
     geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
     const mat = new THREE.PointsMaterial({
-      color: 0x8890A8, size: 0.06, transparent: true, opacity: 0.2,
+      color: 0x8890A8, size: 0.05, transparent: true, opacity: 0.12,
       blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
     });
     const p = new THREE.Points(geo, mat);
     p.frustumCulled = false;
     scene.add(p);
     return p;
-  }
-
-  /* ============================================================
-     Hero — Large nebula surrounding you, spread in XZ
-     ============================================================ */
-  function createHeroScene() {
-    const g = new THREE.Group();
-    g.position.set(0, Y.hero, 0);
-
-    const count = 1000;
-    const pos = new Float32Array(count * 3);
-    const col = new Float32Array(count * 3);
-    const palette = [
-      [0.35, 0.4, 0.7], [0.5, 0.45, 0.85],
-      [0.4, 0.3, 0.65], [0.3, 0.35, 0.6],
-      [0.45, 0.5, 0.8], [0.5, 0.35, 0.7],
-    ];
-    for (let i = 0; i < count; i++) {
-      const i3 = i * 3;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      const r = Math.pow(Math.random(), 0.4) * 5;
-      pos[i3] = r * Math.sin(phi) * Math.cos(theta);
-      pos[i3 + 1] = r * Math.cos(phi) * 0.6;
-      pos[i3 + 2] = r * Math.sin(phi) * Math.sin(theta) - 3;
-      const p = palette[Math.floor(Math.random() * palette.length)];
-      col[i3] = p[0]; col[i3 + 1] = p[1]; col[i3 + 2] = p[2];
-    }
-    const geo = new THREE.BufferGeometry();
-    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
-    const mat = new THREE.PointsMaterial({
-      size: 0.3, vertexColors: true, transparent: true, opacity: 0.35,
-      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
-    });
-    g.add(new THREE.Points(geo, mat));
-
-    const sCount = 50;
-    const sPos = new Float32Array(sCount * 3);
-    for (let i = 0; i < sCount; i++) {
-      const a = Math.random() * Math.PI * 2;
-      const r = Math.pow(Math.random(), 0.5) * 4;
-      sPos[i * 3] = Math.cos(a) * r;
-      sPos[i * 3 + 1] = (Math.random() - 0.5) * 3;
-      sPos[i * 3 + 2] = Math.sin(a) * r - 3;
-    }
-    const sGeo = new THREE.BufferGeometry();
-    sGeo.setAttribute('position', new THREE.BufferAttribute(sPos, 3));
-    const sMat = new THREE.PointsMaterial({
-      size: 0.08, color: 0xA5B4FC, transparent: true, opacity: 0.6,
-      blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
-    });
-    g.add(new THREE.Points(sGeo, sMat));
-
-    g.frustumCulled = false;
-    scene.add(g);
-    sections.push({ obj: g, y: Y.hero, radius: 14 });
-    return g;
   }
 
   /* ============================================================
@@ -171,7 +112,7 @@
 
     g.frustumCulled = false;
     scene.add(g);
-    sections.push({ obj: g, y: Y.about, radius: 12 });
+    sections.push({ obj: g, y: Y.about, radius: 5 });
     return g;
   }
 
@@ -341,43 +282,6 @@
   }
 
   /* ============================================================
-     Education — 3 star clusters at different depths
-     ============================================================ */
-  function createClusterScene() {
-    const g = new THREE.Group();
-    g.position.set(0, Y.education, 0);
-
-    const clusterDefs = [
-      { count: 80, dx: 0, dy: 0, dz: -4, spread: 1.5, color: 0x8890B0 },
-      { count: 60, dx: -6, dy: 0.4, dz: -9, spread: 1.2, color: 0x9098B8 },
-      { count: 60, dx: 5.5, dy: -0.3, dz: 4, spread: 1.3, color: 0x8890B0 },
-    ];
-
-    clusterDefs.forEach(def => {
-      const pos = new Float32Array(def.count * 3);
-      for (let i = 0; i < def.count; i++) {
-        const a = Math.random() * Math.PI * 2;
-        const r = Math.pow(Math.random(), 1.5) * def.spread;
-        pos[i * 3] = Math.cos(a) * r + def.dx;
-        pos[i * 3 + 1] = (Math.random() - 0.5) * def.spread + def.dy;
-        pos[i * 3 + 2] = (Math.random() - 0.5) * def.spread + def.dz;
-      }
-      const geo = new THREE.BufferGeometry();
-      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-      const mat = new THREE.PointsMaterial({
-        size: 0.1, color: def.color, transparent: true, opacity: 0.3,
-        blending: THREE.AdditiveBlending, depthWrite: false, sizeAttenuation: true,
-      });
-      g.add(new THREE.Points(geo, mat));
-    });
-
-    g.frustumCulled = false;
-    scene.add(g);
-    sections.push({ obj: g, y: Y.education, radius: 12 });
-    return g;
-  }
-
-  /* ============================================================
      Contact — Large spiral galaxy
      ============================================================ */
   function createGalaxyScene() {
@@ -418,12 +322,10 @@
   /* ---- Build scene ---- */
   const starfield = createStarfield();
   const dust = createAmbientDust();
-  const heroScene = createHeroScene();
   const cometScene = createCometScene();
   const orbitScene = createOrbitScene();
   const saturnScene = createSaturnScene();
   const constellationScene = createConstellationScene();
-  const clusterScene = createClusterScene();
   const galaxyScene = createGalaxyScene();
 
   /* ---- Store orbiters for animation ---- */
