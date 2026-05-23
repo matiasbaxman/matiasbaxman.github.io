@@ -7,29 +7,42 @@
   <title>Matías Baxman — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-  <header class="header" id="header">
-    <nav class="nav container">
-      <a href="#hero" class="nav__logo">MB</a>
-      <ul class="nav__list" id="nav-list">
-        <li><a href="#about" class="nav__link">Sobre mí</a></li>
-        <li><a href="#skills" class="nav__link">Skills</a></li>
-        <li><a href="#projects" class="nav__link">Proyectos</a></li>
-        <li><a href="#experience" class="nav__link">Experiencia</a></li>
-        <li><a href="#education" class="nav__link">Educación</a></li>
-        <li><a href="#contact" class="nav__link">Contacto</a></li>
-      </ul>
-      <button class="nav__toggle" id="nav-toggle" aria-label="Menú de navegación">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </nav>
-  </header>
+  <div class="splash" id="splash">
+    <div class="splash__content">
+      <span class="splash__logo">MB</span>
+      <div class="splash__ring"></div>
+    </div>
+  </div>
+
+  <canvas class="stars" id="stars"></canvas>
+
+  <div class="cursor" id="cursor"></div>
+
+  <nav class="dock" id="dock">
+    <a href="#about" class="dock__item" data-label="Sobre mí">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </a>
+    <a href="#skills" class="dock__item" data-label="Skills">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    </a>
+    <a href="#projects" class="dock__item" data-label="Proyectos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    </a>
+    <a href="#experience" class="dock__item" data-label="Experiencia">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+    </a>
+    <a href="#education" class="dock__item" data-label="Educación">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+    </a>
+    <a href="#contact" class="dock__item" data-label="Contacto">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </a>
+  </nav>
 
   <main>
     <section class="hero" id="hero">
@@ -125,7 +138,7 @@
             <div class="project-card__body">
               <h3 class="project-card__title">InventoryBaxman</h3>
               <p class="project-card__description">
-                Primera app móvil funcional. Catalogo digital de muebles para taller
+                Primera app móvil funcional. Catálogo digital de muebles para taller
                 familiar con autenticación, carga de fotos, filtros y PDF.
                 Desarrollada con Ionic + Angular y Firebase.
               </p>
@@ -184,27 +197,6 @@
               </div>
             </div>
           </article>
-          <article class="project-card">
-            <div class="project-card__image">
-              <div class="project-card__placeholder">Tu Estilo</div>
-            </div>
-            <div class="project-card__body">
-              <h3 class="project-card__title">Tu Estilo</h3>
-              <p class="project-card__description">
-                Primer proyecto web. Backend con Django para plataforma de moda
-                "Tu Estilo". API REST con base de datos SQLite. Introducción al
-                desarrollo web con Python.
-              </p>
-              <div class="project-card__tags">
-                <span class="tag">Django</span>
-                <span class="tag">Python</span>
-                <span class="tag">SQLite</span>
-              </div>
-              <div class="project-card__links">
-                <a href="https://github.com/matiasbaxman/UNI-TUESTILO" class="btn btn--small btn--outline" target="_blank" rel="noopener">Código</a>
-              </div>
-            </div>
-          </article>
         </div>
       </div>
     </section>
@@ -260,9 +252,9 @@
         <h2 class="section__title">Educación</h2>
         <div class="education__grid">
           <div class="education-card">
-            <h3 class="education-card__degree">Ingeniería en Sistemas</h3>
-            <p class="education-card__institution">Universidad</p>
-            <span class="education-card__date">2016 — 2022</span>
+            <h3 class="education-card__degree">Ingeniería en informática</h3>
+            <p class="education-card__institution">Duoc UC, Viña del mar</p>
+            <span class="education-card__date">2023 — 2027</span>
           </div>
           <div class="education-card">
             <h3 class="education-card__degree">Curso / Certificación</h3>
@@ -289,6 +281,10 @@
           <a href="mailto:matias@example.com" class="contact__link">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             <span>Email</span>
+          </a>
+          <a href="https://www.superprof.cl/ofrezco-clases-introduccion-programacion-bases-datos-desarrollo-web-forma-practica-claras-dinamicas-ideal-para.html" target="_blank" rel="noopener" class="contact__link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+            <span>Superprof</span>
           </a>
         </div>
       </div>
