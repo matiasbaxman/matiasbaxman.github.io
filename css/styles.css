@@ -249,7 +249,11 @@ button { border: none; background: none; cursor: none; font: inherit; color: inh
 
 .section {
   position: relative;
-  padding: var(--spacing-2xl) 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg) 0;
   scroll-margin-top: 2rem;
 }
 
@@ -265,10 +269,11 @@ button { border: none; background: none; cursor: none; font: inherit; color: inh
 .section > .container {
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 .section:last-of-type {
-  padding-bottom: calc(var(--spacing-2xl) + var(--dock-height) + var(--spacing-lg));
+  padding-bottom: calc(var(--spacing-lg) + var(--dock-height) + var(--spacing-lg));
 }
 
 .section__title {
@@ -759,11 +764,11 @@ button { border: none; background: none; cursor: none; font: inherit; color: inh
   body { cursor: auto; }
 
   .section {
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-md) 0;
   }
 
   .section:last-of-type {
-    padding-bottom: calc(var(--spacing-xl) + var(--dock-height) + var(--spacing-lg));
+    padding-bottom: calc(var(--spacing-md) + var(--dock-height) + var(--spacing-lg));
   }
 
   .section__title {

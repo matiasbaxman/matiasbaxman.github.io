@@ -139,6 +139,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const dock = document.getElementById('dock');
   const dockItems = document.querySelectorAll('.dock__item');
 
+  /* ---- Show dock only when idle ---- */
+  let dockTimer;
+
+  function showDock() { dock.classList.remove('dock--hidden'); }
+  function hideDock() { dock.classList.add('dock--hidden'); }
+
+  function onScroll() {
+    hideDock();
+    clearTimeout(dockTimer);
+    dockTimer = setTimeout(showDock, 1200);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  dockTimer = setTimeout(showDock, 300);
+
   /* ---- Active dock link via IntersectionObserver ---- */
   const sections = document.querySelectorAll('section[id]');
 

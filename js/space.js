@@ -17,7 +17,7 @@
   const Y = {
     about: 6, skills: 12, projects: 18, experience: 24, contact: 36
   };
-  const Y_RANGE = [-2, 44];
+  const Y_RANGE = [-2, 50];
 
   const sections = [];
 
