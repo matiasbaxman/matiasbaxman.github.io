@@ -74,21 +74,27 @@ document.addEventListener('DOMContentLoaded', () => {
   const dockItems = document.querySelectorAll('.dock__item');
   let lastScrollY = window.scrollY;
   let dockTimer = null;
+  let isNavigating = false;
+
+  const showDock = () => dock.classList.remove('dock--hidden');
+  const hideDock = () => dock.classList.add('dock--hidden');
 
   const handleDockVisibility = () => {
     const currentScrollY = window.scrollY;
     const scrollUp = currentScrollY < lastScrollY;
 
-    if (currentScrollY <= 100) {
-      dock.classList.remove('dock--hidden');
+    if (isNavigating) {
+      showDock();
+    } else if (currentScrollY <= 100) {
+      showDock();
     } else if (scrollUp) {
-      dock.classList.remove('dock--hidden');
+      showDock();
       clearTimeout(dockTimer);
       dockTimer = setTimeout(() => {
-        dock.classList.add('dock--hidden');
+        if (!isNavigating) hideDock();
       }, 2500);
     } else {
-      dock.classList.add('dock--hidden');
+      hideDock();
     }
 
     lastScrollY = currentScrollY;
@@ -105,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  /* ---- Active dock link on scroll ---- */
+  /* ---- Active dock link via IntersectionObserver ---- */
   const sections = document.querySelectorAll('section[id]');
 
   const sectionObserver = new IntersectionObserver(entries => {
@@ -120,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, {
-    rootMargin: '0px 0px -55% 0px',
+    rootMargin: '-40% 0px -40% 0px',
   });
 
   sections.forEach(s => sectionObserver.observe(s));
@@ -129,10 +135,26 @@ document.addEventListener('DOMContentLoaded', () => {
   dockItems.forEach(item => {
     item.addEventListener('click', e => {
       e.preventDefault();
-      const target = document.querySelector(item.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+      const targetId = item.getAttribute('href');
+      const target = document.querySelector(targetId);
+      if (!target) return;
+
+      isNavigating = true;
+      showDock();
+      clearTimeout(dockTimer);
+
+      target.scrollIntoView({ behavior: 'smooth' });
+
+      const checkScrollEnd = () => {
+        if (Math.abs(window.scrollY + window.innerHeight / 2 - target.offsetTop - target.offsetHeight / 2) < 5) {
+          isNavigating = false;
+          dockTimer = setTimeout(hideDock, 2500);
+        } else {
+          requestAnimationFrame(checkScrollEnd);
+        }
+      };
+
+      setTimeout(() => requestAnimationFrame(checkScrollEnd), 100);
     });
   });
 

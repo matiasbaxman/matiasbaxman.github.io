@@ -4,17 +4,17 @@
 :root {
   --clr-bg: #0A0A0F;
   --clr-bg-alt: #08080E;
-  --clr-surface: rgba(20, 20, 31, 0.85);
-  --clr-surface-hover: rgba(28, 28, 46, 0.9);
+  --clr-surface: rgba(16, 16, 22, 0.85);
+  --clr-surface-hover: rgba(24, 24, 40, 0.9);
   --clr-border: rgba(129, 140, 248, 0.15);
   --clr-border-hover: rgba(129, 140, 248, 0.35);
   --clr-primary: #818CF8;
   --clr-primary-hover: #A5B4FC;
   --clr-primary-light: rgba(129, 140, 248, 0.1);
-  --clr-primary-glow: rgba(129, 140, 248, 0.35);
-  --clr-accent: #F59E0B;
+  --clr-primary-glow: rgba(129, 140, 248, 0.3);
+  --clr-accent: #60A5FA;
   --clr-text: #F1F5F9;
-  --clr-text-muted: #C0C8D4;
+  --clr-text-muted: #CBD5E1;
   --clr-text-light: #94A3B8;
 
   --ff-display: 'Cinzel', serif;
@@ -131,7 +131,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   font-family: var(--ff-display);
   font-size: var(--fs-6xl);
   font-weight: 800;
-  background: linear-gradient(135deg, var(--clr-primary), #8B5CF6);
+  background: linear-gradient(135deg, #818CF8, #6366F1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -152,7 +152,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
 }
 
 /* ========================================
-   Three.js Renderer Canvas
+   Three.js Renderer Canvas + Overlay
    ======================================== */
 #space-canvas {
   position: fixed;
@@ -160,6 +160,14 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   z-index: -1;
   pointer-events: none;
   display: block;
+}
+
+.space-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: rgba(10, 10, 15, 0.35);
+  pointer-events: none;
 }
 
 /* ========================================
@@ -301,7 +309,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: radial-gradient(ellipse at 50% 50%, rgba(10, 10, 15, 0.35) 0%, rgba(10, 10, 15, 0.75) 100%);
+  background: radial-gradient(ellipse at 50% 50%, rgba(10, 10, 15, 0) 0%, rgba(10, 10, 15, 0.45) 100%);
   pointer-events: none;
 }
 
@@ -347,8 +355,8 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
 }
 
 .btn--primary {
-  background: linear-gradient(135deg, var(--clr-primary), #8B5CF6);
-  color: var(--clr-bg);
+  background: linear-gradient(135deg, #818CF8, #6366F1);
+  color: #FFFFFF;
   border: none;
 }
 
@@ -390,7 +398,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: radial-gradient(ellipse at center, rgba(10, 10, 15, 0.35) 0%, rgba(10, 10, 15, 0.85) 100%);
+  background: radial-gradient(ellipse at center, rgba(10, 10, 15, 0.15) 0%, rgba(10, 10, 15, 0.65) 100%);
   pointer-events: none;
 }
 
@@ -404,12 +412,6 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-md);
-  background: rgba(10, 10, 15, 0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--clr-border);
-  border-radius: var(--radius-xl);
-  padding: var(--spacing-lg) var(--spacing-xl);
 }
 
 .hero__photo-frame {
@@ -421,7 +423,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   height: 120px;
   border-radius: var(--radius-full);
   border: 2px solid var(--clr-primary);
-  box-shadow: 0 0 20px var(--clr-primary-glow);
+  box-shadow: 0 0 25px var(--clr-primary-glow);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -433,7 +435,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   font-family: var(--ff-display);
   font-size: var(--fs-2xl);
   font-weight: 800;
-  background: linear-gradient(135deg, var(--clr-primary), #8B5CF6);
+  background: linear-gradient(135deg, #818CF8, #6366F1);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -446,13 +448,13 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   font-weight: 800;
   letter-spacing: 0.03em;
   line-height: var(--leading-tight);
-  background: linear-gradient(135deg, var(--clr-primary), #8B5CF6, var(--clr-primary));
+  background: linear-gradient(135deg, #818CF8, #6366F1, #A5B4FC);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   background-size: 200% auto;
   animation: shimmer 4s ease infinite;
-  filter: drop-shadow(0 0 30px rgba(129, 140, 248, 0.15));
+  filter: drop-shadow(0 0 30px rgba(129, 140, 248, 0.2));
 }
 
 @keyframes shimmer {
@@ -839,12 +841,6 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
     display: none;
   }
 
-  .hero__content {
-    padding: var(--spacing-md);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
   .hero__title {
     font-size: var(--fs-5xl);
   }
@@ -888,12 +884,6 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   .dock__item svg {
     width: 16px;
     height: 16px;
-  }
-
-  .hero__content {
-    padding: var(--spacing-sm) var(--spacing-md);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
   }
 
   .hero__title {
