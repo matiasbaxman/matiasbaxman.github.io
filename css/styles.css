@@ -3,19 +3,19 @@
    ======================================== */
 :root {
   --clr-bg: #0A0A0F;
-  --clr-bg-alt: #0F0F18;
-  --clr-surface: #14141F;
-  --clr-surface-hover: #1C1C2E;
-  --clr-border: rgba(129, 140, 248, 0.12);
-  --clr-border-hover: rgba(129, 140, 248, 0.3);
+  --clr-bg-alt: #08080E;
+  --clr-surface: rgba(20, 20, 31, 0.85);
+  --clr-surface-hover: rgba(28, 28, 46, 0.9);
+  --clr-border: rgba(129, 140, 248, 0.15);
+  --clr-border-hover: rgba(129, 140, 248, 0.35);
   --clr-primary: #818CF8;
   --clr-primary-hover: #A5B4FC;
-  --clr-primary-light: rgba(129, 140, 248, 0.08);
-  --clr-primary-glow: rgba(129, 140, 248, 0.25);
+  --clr-primary-light: rgba(129, 140, 248, 0.1);
+  --clr-primary-glow: rgba(129, 140, 248, 0.35);
   --clr-accent: #F59E0B;
   --clr-text: #F1F5F9;
-  --clr-text-muted: #94A3B8;
-  --clr-text-light: #64748B;
+  --clr-text-muted: #C0C8D4;
+  --clr-text-light: #94A3B8;
 
   --ff-display: 'Cinzel', serif;
   --ff-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -152,13 +152,14 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
 }
 
 /* ========================================
-   Stars Canvas
+   Three.js Renderer Canvas
    ======================================== */
-.stars {
+#space-canvas {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  display: block;
 }
 
 /* ========================================
@@ -207,8 +208,8 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   align-items: center;
   gap: 4px;
   padding: 8px 12px;
-  background: rgba(20, 20, 31, 0.75);
-  backdrop-filter: blur(20px);
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-xl);
@@ -290,8 +291,23 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
 }
 
 .section {
+  position: relative;
   padding: var(--spacing-2xl) 0;
   scroll-margin-top: 2rem;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(10, 10, 15, 0.35) 0%, rgba(10, 10, 15, 0.75) 100%);
+  pointer-events: none;
+}
+
+.section > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .section:last-of-type {
@@ -366,6 +382,21 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   align-items: center;
   justify-content: center;
   text-align: center;
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, rgba(10, 10, 15, 0.35) 0%, rgba(10, 10, 15, 0.85) 100%);
+  pointer-events: none;
+}
+
+.hero > .hero__content {
+  position: relative;
+  z-index: 1;
 }
 
 .hero__content {
@@ -373,6 +404,12 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-md);
+  background: rgba(10, 10, 15, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-lg) var(--spacing-xl);
 }
 
 .hero__photo-frame {
@@ -415,6 +452,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   background-clip: text;
   background-size: 200% auto;
   animation: shimmer 4s ease infinite;
+  filter: drop-shadow(0 0 30px rgba(129, 140, 248, 0.15));
 }
 
 @keyframes shimmer {
@@ -434,6 +472,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   font-size: var(--fs-lg);
   color: var(--clr-text-muted);
   max-width: 36rem;
+  text-shadow: 0 0 10px rgba(10, 10, 15, 0.9), 0 0 40px rgba(10, 10, 15, 0.6);
 }
 
 .hero__actions {
@@ -457,6 +496,7 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   font-size: var(--fs-lg);
   color: var(--clr-text-muted);
   line-height: var(--leading-normal);
+  text-shadow: 0 0 8px rgba(10, 10, 15, 0.9), 0 0 30px rgba(10, 10, 15, 0.5);
 }
 
 /* ========================================
@@ -470,6 +510,8 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
 
 .skill-card {
   background: var(--clr-surface);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--clr-border);
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
@@ -510,6 +552,8 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   overflow: hidden;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
   background: var(--clr-surface);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .project-card:hover {
@@ -662,6 +706,8 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   border-radius: var(--radius-md);
   padding: var(--spacing-md);
   background: var(--clr-surface);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
@@ -793,6 +839,12 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
     display: none;
   }
 
+  .hero__content {
+    padding: var(--spacing-md);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
   .hero__title {
     font-size: var(--fs-5xl);
   }
@@ -836,6 +888,12 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   .dock__item svg {
     width: 16px;
     height: 16px;
+  }
+
+  .hero__content {
+    padding: var(--spacing-sm) var(--spacing-md);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 
   .hero__title {
