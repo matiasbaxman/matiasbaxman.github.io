@@ -288,6 +288,14 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   transform: translateX(-50%) scale(1);
 }
 
+.dock__sep {
+  width: 1px;
+  height: 24px;
+  background: var(--clr-border);
+  margin: 0 4px;
+  pointer-events: none;
+}
+
 /* ========================================
    Utility
    ======================================== */
@@ -838,6 +846,10 @@ button { border: none; background: none; cursor: pointer; font: inherit; color: 
   }
 
   .dock__item::after {
+    display: none;
+  }
+
+  .dock__sep {
     display: none;
   }
 
